@@ -1,20 +1,20 @@
 [project]
 name = "gcp-modular-template"
 version = "0.1.0"
-description = "Modular GCP Data Engineering Template"
+description = "Modular GCP Data Engineering & API Template"
 readme = "README.md"
 authors = [
     { name = "MGilbert777", email = "mackenzie.gilbert@realist.ai" }
 ]
-requires-python = ">=3.13" # Match your .python-version
+requires-python = ">=3.13"
 dependencies = [
     "loguru>=0.7.2",
     "pydantic>=2.0.0",
+    "python-dotenv>=1.0.1",
     "google-cloud-storage",
     "google-cloud-bigquery",
     "google-cloud-pubsub",
     "google-cloud-secret-manager",
-    "python-dotenv>=1.0.0", # Added for local/test env management
 ]
 
 [dependency-groups]
@@ -27,5 +27,13 @@ dev = [
 ]
 
 [build-system]
-requires = ["uv_build>=0.9.5,<0.10.0"] # Match your build backend
+requires = ["uv_build>=0.9.5,<0.10.0"]
 build-backend = "uv_build"
+
+[tool.ruff]
+line-length = 88
+select = ["E", "F", "I", "N"]
+
+[tool.mypy]
+strict = true
+ignore_missing_imports = true
