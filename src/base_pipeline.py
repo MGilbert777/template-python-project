@@ -1,32 +1,24 @@
 from abc import ABC, abstractmethod
 from typing import Any
-from .logger_factory import setup_logging
-from .clients import GCPClientFactory
+from .interfaces import LoggerProtocol
+from .logger_factory import get_logger
 
 class GCPBasePipeline(ABC):
     """
-    Abstract base class for modular GCP data pipelines.
+    Abstract base class for modular GCP pipelines.
     
-    Attributes:
-        logger: Configured loguru instance.
-        clients: Factory for GCP service clients.
+    Args:
+        logger: Any object implementing LoggerProtocol.
     """
-    def __init__(self, service_name: str):
-        self.logger = setup_logging("pipeline")
-        self.clients = GCPClientFactory()
+    def __init__(self, service_name: str, logger: LoggerProtocol = None):
+        self.logger = logger or get_logger(service_name)
         self.service_name = service_name
 
     @abstractmethod
-    def extract(self) -> Any:
-        """Extract data from source (GCS, API, etc.)"""
-        pass
+    def extract(self) -> Any: ...
 
     @abstractmethod
-    def transform(self, data: Any) -> Any:
-        """Apply business logic and cleaning."""
-        pass
+    def transform(self, data: Any) -> Any: ...
 
     @abstractmethod
-    def load(self, data: Any) -> None:
-        """Load data into destination (BigQuery, etc.)"""
-        pass
+    def load(self, data: Any) -> None: ...
