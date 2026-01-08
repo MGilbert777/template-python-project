@@ -1,7 +1,7 @@
 [project]
 name = "gcp-modular-template"
 version = "0.1.0"
-description = "Modular GCP Data Engineering & API Template"
+description = "Modular GCP Data Engineering"
 readme = "README.md"
 authors = [
     { name = "MGilbert777", email = "mackenzie.gilbert@realist.ai" }
